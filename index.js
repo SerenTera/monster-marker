@@ -27,6 +27,9 @@ module.exports = function warnme(dispatch) {
 				alerted=false,
 				message('Warnme alerts disabled');
 		};
+		
+		if(event.message.includes('!warn'))
+			return false;
 	});
 		
 	dispatch.hook('S_SPAWN_NPC', 3, (event) => {
