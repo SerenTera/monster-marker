@@ -18,7 +18,7 @@ module.exports = function warnme(dispatch) {
 			message('Warnme disabled');
 		};
 		
-		if(/^<FONT>!warnalert<\/FONT>$/i.test(event.message)) {
+		if(/^<FONT>!warn alert<\/FONT>$/i.test(event.message)) {
 			if(!alerted) {
 				alerted=true,
 				message('Warnme alerts enabled');
