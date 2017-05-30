@@ -11,7 +11,7 @@ Commands:
 
 !warn off -switches off module
 
-!warnalert - Toggles system notices
+!warn alert - Toggles system notices
 
 
 Currently only supports Big Blue Boxes. Can be modified for other objects
