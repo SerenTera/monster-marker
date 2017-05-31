@@ -1,11 +1,21 @@
-const mobzone = [1023],
-	mobtemplate = [88888888] //zone and template ids of mobs, this is only for blue boxes, more ids can be added (eg:mongos)
+/*
+ZonesID: Bluebox-1023 | Caiman-1023 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
+
+Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | unknown for mongos
+*/
+
+const mobzone = [1023], //zone ids of mobs
+	mobtemplate = [88888888];  //template ids of mobs, incl big/rare mongo here
+	//mongosmall = [];	//small mongo templates
+	
 	custommsg= 'Bluebox' //change custom message here
 	
 module.exports = function warnme(dispatch) {
 	
 	let enabled=false,
 		alerted=false;
+		//mongo=true,
+		//mobtemplatenew=mobtemplate.concat(mongosmall); //if smallmongo array is used, change array in S_SPAWN_NPC to mobtemplatenew
 	
 	dispatch.hook('C_CHAT', 1, event => {
 		if(/^<FONT>!warn on<\/FONT>$/i.test(event.message)) {
@@ -27,6 +37,18 @@ module.exports = function warnme(dispatch) {
 				alerted=false,
 				message('Warnme alerts disabled');
 		};
+		
+		/*if(/^<FONT>!warn mongo<\/FONT>$/i.test(event.message)) {
+			if(!mongo) {
+				mongo=false,
+				mobtemplatenew=mobtemplate,
+				message('Warnme small mongo ignored');
+			}
+			else
+				mongo=true,
+				mobtemplatenew=mobtemplate.concat(mongosmall),
+				message('Warnme small mongo enabled');
+		}; */
 		
 		if(event.message.includes('!warn'))
 			return false;
