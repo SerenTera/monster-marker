@@ -1,5 +1,5 @@
 # warnme v2- Added mobmarker
-A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your vicinity and puts a marker on them.
+A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your vicinity and puts a marker on them. See mob-marker module for more info on the marker.
 
 Now with mobmarker integration so you can just use one module instead of two. mob-marker will still be kept for those who wants a standalone mobmarker without warnme functions.
 
