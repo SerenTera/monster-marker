@@ -20,3 +20,4 @@ Commands:
 !warn clear- Attempts to clear all markers and reset the module. Use if vergos head failed to despawn
 
 Currently only supports Big Blue Boxes. Can be modified for other objects.
+Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
