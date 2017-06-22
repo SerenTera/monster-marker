@@ -21,3 +21,8 @@ Commands:
 
 Currently only supports Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
+
+## todo
+Simplify code and tidy up things.
+
+Use commands module by Pinkie Pie for commands handling.
