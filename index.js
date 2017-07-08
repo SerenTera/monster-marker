@@ -13,8 +13,8 @@ let	enabled=true, //default enabling of module(default true)
 	alerted=true;	//default enabling of system notice (default true)
 	
 //Monster ids and other values:
-const mobzone = [4587701], //huntingzoneid of mob
-	mobtemplate = [2015], //template ids of mobs
+const mobzone = [1023], //huntingzoneid of mob
+	mobtemplate = [88888888], //template ids of mobs
 	itemid = 98260, //ItemId for the marker, Use different itemids if you feel like it.
 	custommsg = 'Bluebox'; //change custom message for the item here
 	
