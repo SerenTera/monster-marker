@@ -1,146 +1,115 @@
 /*
-ZonesID: Bluebox-1023 | Caiman-1023 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
-
+Reference List
+HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
 Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | unknown for mongos
+
+To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId.
 */
 	
-//Defaults
-let	enabled=true, //default enabling of module  (default true)
-	markenabled=true,  //default enabling of markers	(default true)
-	alerted=false;	//default enabling of system notice (default false)
-//Mob ids	
-const mobzone = [1023], //zone id of mob
-	mobtemplate = [88888888] //template ids of mobs, this is only for blue boxes, more ids can be added (eg:mongos)
-	custommsg= 'Bluebox' //change custom message here
+//Defaults:
+let	enabled=true, //default enabling of module(default true)
+	markenabled=true,  //default enabling of markers(default true)
+	messager=true,  //default enabling of system chat message (default false)
+	alerted=true;	//default enabling of system notice (default true)
+	
+//Monster ids and other values:
+const mobzone = [4587701], //huntingzoneid of mob
+	mobtemplate = [2015], //template ids of mobs
+	itemid = 98260, //ItemId for the marker, Use different itemids if you feel like it.
+	custommsg = 'Bluebox'; //change custom message for the item here
+	
+//------------------------------------All defaults and changeable values are above this line------------------------------------------------------------------//
+
+const Command = require('command');
 
 module.exports = function markmob(dispatch) {
-	let player,
-		ind;
+	const command = Command(dispatch);
 
-	let countarr = [],
-		moblocationx = [],
-		moblocationy = [],
-		moblocationz = [];
+	let	mobid=[];
 		
-	dispatch.hook('S_LOGIN', 1, event => {
-		player = event.playerId;
-	});
-	
-	dispatch.hook('C_CHAT', 1, event => {
-		if(event.message.includes('!warn')) {
-			if(/^<FONT>!warn on<\/FONT>$/i.test(event.message)) {
-			enabled=true,
-			message('Warnme enabled');
+	command.add('warntoggle',() => {
+		if(enabled) {
+			for(let items of mobid) {
+				despawnthis(items)
 			};
-		
-			if(/^<FONT>!warn off<\/FONT>$/i.test(event.message)) {
 			enabled=false,
-			message('Warnme disabled');
-			};
-		
-			if(/^<FONT>!warn alert<\/FONT>$/i.test(event.message)) {
-				if(!alerted) {
-					alerted=true,
-					message('Warnme alerts enabled'),
-					notice('Warnme alerts enabled');
-				}
-				else
-					alerted=false,
-					message('Warnme alerts disabled');
-			};
-			
-			if(/^<FONT>!warn marker<\/FONT>$/i.test(event.message)) {
-				if(!markenabled) {
-					markenabled=true,
-					message('Warnme marker enabled');
-				}
-				else
-					markenabled=false,
-					message('Warnme marker disabled');
-			};
-		
-			if(/^<FONT>!warn clear<\/FONT>$/i.test(event.message)) {
-				for (i = 0; i < countarr.length; i++) {
-					despawnthis(countarr[i]);
-				};
-				countarr=[],
-				moblocationx = [],
-				moblocationy = [],
-				moblocationz = [],
-				message('Mob marker clear attempted');
-			};
-			return false;
-		};
+			command.message('(Warnme) Module Disabled')
+		}
+		else
+			enabled=true,
+			command.message('(Warnme) Module Enabled')
 	});
 	
-	dispatch.hook('S_SPAWN_NPC', 3, (event) => {
-		if(enabled && (mobzone.includes(event.huntingZoneId) && mobtemplate.includes(event.templateId))) { 
-			for (i = 0; i < (moblocationx.length+1); i++) { 
-				if (i === moblocationx.length) {
-					moblocationx[i] = event.x,
-					moblocationy[i] = event.y,
-					moblocationz[i] = event.z,
-					countarr[i]= (player+1+(i)),
-					markthis(countarr[i],(i)),
-					messenger();
-					break;
-				};
+	command.add('warnalert',() => {
+		if(alerted) {
+			alerted=false,
+			command.message('(Warnme)System popup notice disabled')
+		}
+		else
+			alerted=true,
+			command.message('(Warnme)System popup notice enabled')
+	});
+	
+	command.add('warnmarker',() => {
+		if(markenabled) {
+			markenabled=false,
+			command.message('(Warnme)Item Markers disabled')
+		}
+		else
+			markenabled=true,
+			command.message('(Warnme)Item Markers enabled')
+	});
+	
+	command.add('warnclear',() => {
+		for(let itemid of mobid) {
+			despawnthis(itemid)
+		};
+		command.message('(Warnme)Item Markers Clear Attempted')
+	});
+	
+	dispatch.hook('S_SPAWN_NPC', 3, event => {
+		if(enabled && mobzone.includes(event.huntingZoneId) && mobtemplate.includes(event.templateId)) { 
+			if(markenabled) {
+				markthis(event.x,event.y,event.z,event.id.low), //uint64 id makes .includes() method unable to work? >.>
+				mobid.push(event.id.low)
+			};
+			if(alerted) {
+				notice('Found '+custommsg)
+			};
+			if(messager) {
+				command.message('(Warnme)Found '+custommsg)
 			};
 		};
 	}); 
 
 	dispatch.hook('S_DESPAWN_NPC', 1, event => {
-		if(moblocationx.includes(event.x) && moblocationy.includes(event.y) && moblocationz.includes(event.z)) {
-			ind = moblocationx.indexOf(event.x),
-			despawnthis(countarr[ind]),
-			moblocationx.splice(ind,1),
-			moblocationy.splice(ind,1),
-			moblocationz.splice(ind,1),
-			countarr.splice(ind,1);
+		if(mobid.includes(event.target.low)) {
+			despawnthis(event.target.low),
+			mobid.splice(mobid.indexOf(event.target.low),1)
 		};
 	}); 
 	
-	function messenger() {
-		if(alerted) {
-				notice('Found'+' '+custommsg),
-				message('Found'+' '+custommsg);
-			}
-			else
-				message('Found'+' '+custommsg);
+	dispatch.hook('S_LOAD_TOPO',1, event => { //reset mobid list on location change
+		mobid=[]
+	});
+	
+	function markthis(locationx,locationy,locationz,idRef) {
+		dispatch.toClient('S_SPAWN_DROPITEM', 1, {
+			id: {low:idRef,high:0,unsigned:true},
+			x: locationx,
+			y: locationy,
+			z: locationz,
+			item: itemid, 
+			amount: 1,
+			expiry: 300000, //expiry time,milseconds (300000=5 mins?)
+			owners: [{id: 0}]
+		});	
 	};
 	
-	function markthis(targetid,inx) {
-		if(markenabled) {
-			dispatch.toClient('S_SPAWN_DROPITEM', 1, {
-				id: targetid,
-				x: moblocationx[inx],
-				y: moblocationy[inx],
-				z: moblocationz[inx],
-				item: 98260,  //item id
-				amount: 1,
-				expiry: 300000, //expiry time,milseconds (300000=5 mins?)
-				owners: [{id: player}]
-			});	
-		};
-	};
-		
 	function despawnthis(despawnid) {
 		dispatch.toClient('S_DESPAWN_DROPITEM', 1, {
-				id: despawnid
-		});	
-		
-	};
-
-	function message(msg) {
-		dispatch.toClient('S_CHAT', 1, {
-			channel: 24,
-			authorID: 0,
-			unk1: 0,
-			gm: 0,
-			unk2: 0,
-			authorName: '',
-			message: '(Proxy)' + msg
-		})
+			id: {low:despawnid,high:0,unsigned:true}
+		});
 	};
 	
 	function notice(msg) {
