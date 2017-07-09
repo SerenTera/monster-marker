@@ -7,7 +7,9 @@ A Tera Proxy module that warns you when specific objects(mobs like mongos/blue b
 
 This only warns you when the object is loaded onto your visible vicinity (ie. you can see it around you). A mob marker (vergos head) is spawned on mob(bluebox) and despawned when mob is dead/out of range. 
 
-Warning is done via client sided system notices (displays a message in the middle of your screen) as default, but system messages (chat messages) can be turned on. Module, system notices and Mobmarkers are enabled by default. System messages is disabled by default. Defaults can be changed on index.js. To turn on chat message notification, set 'messager=true' under defaults in index.js
+Warning is done via client sided system notices (displays a message in the middle of your screen) as default, but system messages (chat messages) can be turned on. To turn on chat message notification, set 'messager=true' under defaults in index.js or false to disable chat message notifications.
+
+Module, system notices,System messages and Mobmarkers are enabled by default. Defaults can be changed on index.js.
 
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
