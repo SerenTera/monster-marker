@@ -1,7 +1,7 @@
 /*
 Reference List
-HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
-Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | unknown for mongos
+HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
+Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos
 
 To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId.
 */
