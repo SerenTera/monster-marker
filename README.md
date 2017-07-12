@@ -25,5 +25,12 @@ warnclear - Attempts to clear all markers and reset the module. Use if vergos he
 Currently only supports Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
 
+## ID List
+- Hunting zone ids:
+Bluebox-1023 | Caiman-1023 | 'summer event crabs'-6553782
+
+- Template ids:
+Bluebox-88888888 | Caiman-99999999,99999991,99999992 | 'summer event crabs'-1021
+
 ## todo
 Fix any bugs
