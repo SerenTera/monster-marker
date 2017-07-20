@@ -3,6 +3,8 @@ Update v3: Changed to Id-based markers, Simplified code, Item markers cannot be 
 
 Requires Commands module by Pinkie-Pie: https://github.com/pinkipi/command
 
+To find more mob ids, you can use mob-id-finder: https://github.com/SerenTera/Mob-id-finder
+
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them. WILL NOT TELL U ANYTHING IF U CANT SEE IT DON'T ASK HOW TO DO THAT TY. Use common sense and do not use this module/ disable mobmarkers for mob targets with very common spawn rate, instead of complaining of lags >.> This is made for rare spawn events in mind.
 
 This only warns you when the object is loaded onto your visible vicinity (ie. you can see it around you). A mob marker (vergos head) is spawned on mob(bluebox) and despawned when mob is dead/out of range. 
