@@ -29,34 +29,28 @@ module.exports = function markmob(dispatch) {
 	
 	///////Commands
 	command.add('warntoggle',() => {
-		if(enabled) {
-			for(let itemid of mobid) {
-				despawnthis(itemid)
-			}
-			enabled=false
-			command.message('(Warnme) Module Disabled')
-		} 
-		else
-			enabled=true
-			command.message('(Warnme) Module Enabled')
+		enabled=!enabled
+		command.message( enabled ? '(Warnme) Module Enabled' : '(Warnme) Module Disabled')
+		
+		if(!enabled)
+			for(let itemid of mobid) despawnthis(itemid)
 	})
 	
 	command.add('warnalert',() => {
-		alerted = alerted ? false : true
-		alerted ? command.message('(Warnme)System popup notice enabled') : command.message('(Warnme)System popup notice disabled')
+		alerted = !alerted
+		command.message(alerted ? '(Warnme)System popup notice enabled' : '(Warnme)System popup notice disabled')
 	})
 	
 	command.add('warnmarker',() => {
-		markenabled = markenabled ? false : true
-		markenabled ? command.message('(Warnme)Item Markers enabled') : command.message('(Warnme)Item Markers disabled')
+		markenabled = !markenabled
+		command.message(markenabled ? '(Warnme)Item Markers enabled' : '(Warnme)Item Markers disabled')
 	})
 	
 	command.add('warnclear',() => {
-		for(let itemid of mobid) {
-			despawnthis(itemid)
-		}
 		command.message('(Warnme)Item Markers Clear Attempted')
+		for(let itemid of mobid) despawnthis(itemid)
 	})
+	
 	
 	////////Dispatches
 	dispatch.hook('S_SPAWN_NPC', 3, event => {
