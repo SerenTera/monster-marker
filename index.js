@@ -3,20 +3,20 @@ Reference List
 HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
 Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos
 
-To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId.
+To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. Or use 'mob-id-finder' module on my Github (SerenTera)
 */
 	
 //Defaults:
-let	enabled=true, //default enabling of module(default true)
-	markenabled=true,  //default enabling of markers(default true)
-	messager=false,  //default enabling of system chat message (default false)
-	alerted=true;	//default enabling of system notice (default true)
+let	enabled=true, 		//default enabling of module (default true)
+	markenabled=true,   //default enabling of markers (default true)
+	messager=false, 	//default enabling of system chat message (default false)
+	alerted=true		//default enabling of system notice (default true)
 	
 //Monster ids and other values:
-const mobzone = [1023], //huntingzoneid of mob
-	mobtemplate = [88888888], //template ids of mobs
-	itemid = 98260, //ItemId for the marker, Use different itemids if you feel like it.
-	custommsg = 'Bluebox'; //change custom message for the item here
+const mobzone = [4587701],	//huntingzoneid of mob
+	mobtemplate = [2015],	//template ids of mobs
+	itemid = 98260,			//ItemId for the marker, Use different itemids if you feel like it.
+	custommsg = 'Bluebox' 	//change custom message for the item here
 	
 //------------------------------------All defaults and changeable values are above this line------------------------------------------------------------------//
 
@@ -25,39 +25,30 @@ const Command = require('command')
 module.exports = function markmob(dispatch) {
 	const command = Command(dispatch)
 
-	let	mobid=[];
-		
+	let	mobid=[]
+	
+	///////Commands
 	command.add('warntoggle',() => {
 		if(enabled) {
 			for(let itemid of mobid) {
 				despawnthis(itemid)
 			}
-			enabled=false,
+			enabled=false
 			command.message('(Warnme) Module Disabled')
-		}
+		} 
 		else
-			enabled=true,
+			enabled=true
 			command.message('(Warnme) Module Enabled')
 	})
 	
 	command.add('warnalert',() => {
-		if(alerted) {
-			alerted=false,
-			command.message('(Warnme)System popup notice disabled')
-		}
-		else
-			alerted=true,
-			command.message('(Warnme)System popup notice enabled')
+		alerted = alerted ? false : true
+		alerted ? command.message('(Warnme)System popup notice enabled') : command.message('(Warnme)System popup notice disabled')
 	})
 	
 	command.add('warnmarker',() => {
-		if(markenabled) {
-			markenabled=false,
-			command.message('(Warnme)Item Markers disabled')
-		}
-		else
-			markenabled=true,
-			command.message('(Warnme)Item Markers enabled')
+		markenabled = markenabled ? false : true
+		markenabled ? command.message('(Warnme)Item Markers enabled') : command.message('(Warnme)Item Markers disabled')
 	})
 	
 	command.add('warnclear',() => {
@@ -67,18 +58,17 @@ module.exports = function markmob(dispatch) {
 		command.message('(Warnme)Item Markers Clear Attempted')
 	})
 	
+	////////Dispatches
 	dispatch.hook('S_SPAWN_NPC', 3, event => {
 		if(enabled && mobzone.includes(event.huntingZoneId) && mobtemplate.includes(event.templateId)) { 
 			if(markenabled) {
-				markthis(event.x,event.y,event.z,event.id.low), //uint64 id makes .includes() method unable to work? >.>
+				markthis(event.x,event.y,event.z,event.id.low), // low is enough, seems like high are all the same values anyway
 				mobid.push(event.id.low)
 			}
-			if(alerted) {
-				notice('Found '+custommsg)
-			}
-			if(messager) {
-				command.message('(Warnme)Found '+custommsg)
-			}
+			
+			if(alerted) notice('Found '+custommsg)
+			
+			if(messager) command.message('(Warnme)Found '+custommsg)
 		}
 	}) 
 
@@ -93,6 +83,8 @@ module.exports = function markmob(dispatch) {
 		mobid=[]
 	})
 	
+	
+	////////Functions
 	function markthis(locationx,locationy,locationz,idRef) {
 		dispatch.toClient('S_SPAWN_DROPITEM', 1, {
 			id: {low:idRef,high:0,unsigned:true},
@@ -121,3 +113,4 @@ module.exports = function markmob(dispatch) {
         })
     }
 }
+
