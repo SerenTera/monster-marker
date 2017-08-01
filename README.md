@@ -16,13 +16,13 @@ Module, system notices,System messages and Mobmarkers are enabled by default. De
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
 
-warntoggle - Toggles the module. Disabling the module will clear all markers as well.
+- `warntoggle` - Toggles the module. Disabling the module will clear all markers as well.
 
-warnalert - Toggles system notices
+- `warnalert` - Toggles system notices
 
-warnmarker - Toggles display of mobmarkers (switch on or off mob markers via toggle)-
+- `warnmarker` - Toggles display of mobmarkers (switch on or off mob markers via toggle)-
 
-warnclear - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
+- `warnclear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
 
 Currently only supports Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
