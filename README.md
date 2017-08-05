@@ -35,4 +35,14 @@ Bluebox-1023 | Caiman-1023 | 'summer event crabs'-6553782
 Bluebox-88888888 | Caiman-99999999,99999991,99999992 | 'summer event crabs'-1021
 
 ## todo
-Fix any bugs
+- Fix any bugs
+- Maybe incoporate mob id finder. maybee
+
+## Pictures
+Spawns at box (Head cannot be picked up)
+![screenshot](http://i.imgur.com/pRj1rY6.jpg "Spawn at Bluebox")
+
+Despawns when box dies
+![screenshot](http://i.imgur.com/IJuFvLk.jpg "Despawns after box dies")
+
+
