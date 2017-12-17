@@ -7,17 +7,29 @@ To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. O
 */
 	
 //Defaults:
-let	enabled=true, 		//default enabling of module (default true)
-	markenabled=true,   //default enabling of markers (default true)
-	messager=false, 	//default enabling of system chat message (default false)
-	alerted=true		//default enabling of system notice (default true)
+let	enabled=true, 		//True: Enables the module (default true)
+	markenabled=true,   //True: Enables the item markers (default true)
+	messager=false, 	//True: Enables the system chat message (default false)
+	alerts=true			//True: Enables the system notice (default true)
 	
 //Monster ids and other values:
-const mobzone = [4587701],	//huntingzoneid of mob
-	mobtemplate = [2015],	//template ids of mobs
-	itemid = 98260,			//ItemId for the marker, Use different itemids if you feel like it.
-	custommsg = 'Bluebox' 	//change custom message for the item here
-	
+const Item_ID = 98260,			//ItemId for the marker, Use different itemids if you feel like it.
+	  
+	  Monster_ID = { // Monster id values, in the form HuntingZoneId_TemplateId : 'Name of Monster'
+		'4_5011'		: 'Tempest Kanash',
+		'38_35'			: 'Nyxarras',
+		'57_33'			: 'Betsael',
+		'51_7011'		: 'Linyphi',
+		'53_1000'		: 'Divine Reaver',
+		'52_9050'		: 'Yunaras Snaggletooth',
+		'1023_8888888'	: 'Blue Box',
+		//'181_2023'		: 'Test mob',
+		
+	  
+	  
+	  
+	  
+	  }
 //------------------------------------All defaults and changeable values are above this line------------------------------------------------------------------//
 
 const Command = require('command')
@@ -27,7 +39,7 @@ module.exports = function markmob(dispatch) {
 
 	let	mobid=[]
 	
-	///////Commands
+///////Commands
 	command.add('warntoggle',() => {
 		enabled=!enabled
 		command.message( enabled ? '(Warnme) Module Enabled' : '(Warnme) Module Disabled')
@@ -52,24 +64,24 @@ module.exports = function markmob(dispatch) {
 	})
 	
 	
-	////////Dispatches
-	dispatch.hook('S_SPAWN_NPC', 3, event => {
-		if(enabled && mobzone.includes(event.huntingZoneId) && mobtemplate.includes(event.templateId)) { 
+////////Dispatches
+	dispatch.hook('S_SPAWN_NPC', 5, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
+		if(enabled && Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
 			if(markenabled) {
-				markthis(event.x,event.y,event.z,event.id.low), // low is enough, seems like high are all the same values anyway
-				mobid.push(event.id.low)
+				markthis(event.x,event.y,event.z,event.gameId.low), 			// low is enough, seems like high are all the same values anyway
+				mobid.push(event.gameId.low)
 			}
 			
-			if(alerted) notice('Found '+custommsg)
+			if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 			
-			if(messager) command.message('(Warnme)Found '+custommsg)
+			if(messager) command.message('(Warnme)Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 		}
 	}) 
 
-	dispatch.hook('S_DESPAWN_NPC', 1, event => {
-		if(mobid.includes(event.target.low)) {
-			despawnthis(event.target.low),
-			mobid.splice(mobid.indexOf(event.target.low),1)
+	dispatch.hook('S_DESPAWN_NPC', 2, event => {
+		if(mobid.includes(event.gameId.low)) {
+			despawnthis(event.gameId.low),
+			mobid.splice(mobid.indexOf(event.gameId.low), 1)
 		}
 	})
 	
@@ -78,14 +90,14 @@ module.exports = function markmob(dispatch) {
 	})
 	
 	
-	////////Functions
+////////Functions
 	function markthis(locationx,locationy,locationz,idRef) {
 		dispatch.toClient('S_SPAWN_DROPITEM', 1, {
 			id: {low:idRef,high:0,unsigned:true},
 			x: locationx,
 			y: locationy,
 			z: locationz,
-			item: itemid, 
+			item: Item_ID, 
 			amount: 1,
 			expiry: 300000, //expiry time,milseconds (300000=5 mins?)
 			owners: [{id: 0}]
@@ -103,8 +115,7 @@ module.exports = function markmob(dispatch) {
             unk1: 2,
             unk2: 0,
             unk3: 0,
-            message: '(Proxy)' + msg
+            message: '(WarnMe) ' + msg
         })
     }
 }
-
