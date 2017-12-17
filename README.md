@@ -1,6 +1,11 @@
-# WarnMe v3
-Update v3: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
+# WarnMe v4.0.0
 
+## Updates
+Update v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
+
+Update v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
+
+## Requirements and Infomation
 Requires Commands module by Pinkie-Pie: https://github.com/pinkipi/command
 
 To find more mob ids, you can use mob-id-finder: https://github.com/SerenTera/Mob-id-finder
@@ -24,7 +29,7 @@ Use the commands in /proxy chat. If you want to use it outside of /proxy chat, m
 
 - `warnclear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
 
-Currently only supports Big Blue Boxes. Can be modified for other objects.
+Currently supports World Bams and Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
 
 ## ID List - NA Tera specific
