@@ -20,7 +20,7 @@ const Item_ID = 98260,			//ItemId for the marker, Use different itemids if you f
 		'38_35'			: 'Nyxarras',
 		'57_33'			: 'Betsael',
 		'51_7011'		: 'Linyphi',
-		'53_1000'		: 'Divine Reaver',
+		'10_99'			: 'Divine Reaver',
 		'52_9050'		: 'Yunaras Snaggletooth',
 		//'1023_8888888'	: 'Blue Box',
 		//'181_2023'		: 'Test mob',
