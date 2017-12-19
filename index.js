@@ -49,8 +49,8 @@ module.exports = function markmob(dispatch) {
 	})
 	
 	command.add('warnalert',() => {
-		alerted = !alerted
-		command.message(alerted ? '(Warnme)System popup notice enabled' : '(Warnme)System popup notice disabled')
+		alerts = !alerts
+		command.message(alerts ? '(Warnme)System popup notice enabled' : '(Warnme)System popup notice disabled')
 	})
 	
 	command.add('warnmarker',() => {
