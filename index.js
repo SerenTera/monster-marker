@@ -1,6 +1,6 @@
 /*
 Reference List
-HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-182 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
+HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
 Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos
 
 To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. Or use 'mob-id-finder' module on my Github (SerenTera)
@@ -9,7 +9,7 @@ To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. O
 //Defaults:
 let	enabled=true, 		//True: Enables the module (default true)
 	markenabled=true,   //True: Enables the item markers (default true)
-	messager=false, 	//True: Enables the system chat message (default false)
+	messager=true, 	//True: Enables the system chat message (default false)
 	alerts=true			//True: Enables the system notice (default true)
 	
 //Monster ids and other values:
@@ -22,7 +22,7 @@ const Item_ID = 98260,			//ItemId for the marker, Use different itemids if you f
 		'51_7011'		: 'Linyphi',
 		'10_99'			: 'Divine Reaver',
 		'52_9050'		: 'Yunaras Snaggletooth',
-		//'1023_8888888'	: 'Blue Box',
+		'1023_8888888'	: 'Blue Box',
 		//'181_2023'		: 'Test mob',
 		
 	  
@@ -65,10 +65,10 @@ module.exports = function markmob(dispatch) {
 	
 	
 ////////Dispatches
-	dispatch.hook('S_SPAWN_NPC', 5, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
+	dispatch.hook('S_SPAWN_NPC', 6, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
 		if(enabled && Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
 			if(markenabled) {
-				markthis(event.x,event.y,event.z,event.gameId.low), 			// low is enough, seems like high are all the same values anyway
+				markthis(event.loc,event.gameId.low), 			// low is enough, seems like high are all the same values anyway
 				mobid.push(event.gameId.low)
 			}
 			
@@ -85,28 +85,31 @@ module.exports = function markmob(dispatch) {
 		}
 	})
 	
-	dispatch.hook('S_LOAD_TOPO',1, event => { //reset mobid list on location change
+	dispatch.hook('S_LOAD_TOPO','raw', () => { //reset mobid list on location change
 		mobid=[]
 	})
 	
 	
 ////////Functions
-	function markthis(locationx,locationy,locationz,idRef) {
-		dispatch.toClient('S_SPAWN_DROPITEM', 1, {
-			id: {low:idRef,high:0,unsigned:true},
-			x: locationx,
-			y: locationy,
-			z: locationz,
+	function markthis(locs,idRef) {
+		dispatch.toClient('S_SPAWN_DROPITEM', 6, {
+			gameId: {low:idRef,high:0,unsigned:true},
+			loc:locs,
 			item: Item_ID, 
 			amount: 1,
 			expiry: 300000, //expiry time,milseconds (300000=5 mins?)
+			explode:false,
+			masterwork:false,
+			enchant:0,
+			source:0,
+			debug:false,
 			owners: [{id: 0}]
 		})
 	}
 	
 	function despawnthis(despawnid) {
-		dispatch.toClient('S_DESPAWN_DROPITEM', 1, {
-			id: {low:despawnid,high:0,unsigned:true}
+		dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
+			gameId: {low:despawnid,high:0,unsigned:true}
 		})
 	}
 	
@@ -115,7 +118,8 @@ module.exports = function markmob(dispatch) {
             unk1: 2,
             unk2: 0,
             unk3: 0,
-            message: '(WarnMe) ' + msg
+            message: '(WarnMe)' + msg
         })
     }
 }
+
