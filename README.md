@@ -1,9 +1,14 @@
-# WarnMe v4.0.0
+# monster-marker
 
 ## Updates
-Update v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
+Latest Version: v4.1.0 
 
-Update v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
+Version History:
+v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
+
+v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
+
+v4.1.0: Updated packet definition
 
 ## Requirements and Infomation
 Requires Commands module by Pinkie-Pie: https://github.com/pinkipi/command
