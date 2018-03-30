@@ -1,7 +1,7 @@
 # monster-marker
 
 ## Updates
-Latest Version: v4.1.0 
+Latest Version: v4.2.0 
 
 Version History:
 
@@ -9,10 +9,15 @@ v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be pic
 
 v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
 
-v4.1.0: Updated packet definition
+v4.1.0: Updated packet definition for Male Brawler Patch
 
+v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be automatically generated on first login.
 ## Requirements and Infomation
-Requires Commands module by Pinkie-Pie: https://github.com/pinkipi/command
+Requires: 
+- Commands module by Pinkie-Pie: https://github.com/pinkipi/command
+
+Supports:
+- Auto Update using Caali's Proxy
 
 To find more mob ids, you can use mob-id-finder: https://github.com/SerenTera/Mob-id-finder
 
@@ -22,8 +27,15 @@ This only warns you when the object is loaded onto your visible vicinity (ie. yo
 
 Warning is done via client sided system notices (displays a message in the middle of your screen) as default, but system messages (chat messages) can be turned on. To turn on chat message notification, set 'messager=true' under defaults in index.js or false to disable chat message notifications.
 
-Module, system notices,System messages and Mobmarkers are enabled by default. Defaults can be changed on index.js.
+## Config
+Configuration can be done via config.json. If not present, it will be generated on first startup.
 
+- `enabled`:Default enabling of the module. True to always enable on startup
+- `markenabled`: Enables item markers on monsters. True to spawn item markers.
+- `messager`: Enables Messaging via chats. True to enable
+- `alerts`: Enable flashing messages for alert. True to enable.
+- `Item_ID`: Item ID of item marker
+- `Monster_ID`: List of Mobs to look out for. Format: `"<huntingZoneId>_<templateId>" : "<Name of mob>"`
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
 
