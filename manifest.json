@@ -1,0 +1,14 @@
+{
+    "files": {
+        "index.js": "fa3f8685e2f31b8c44713f5fe1c856efbcee61d0810c826971add5205170dcb1",
+        "modules.json": "87e057bac31baf72febaa13cfe7eeaeacf8b6b7bbf78ce0ff62c24824d9a3fa2",
+        "lib/configDefault.json": "7bff7c1b8378156fe6d069674bec9b4fa24cbbfccf3442935ca682cbe6d1a907"
+    },
+    "defs": {
+        "S_SPAWN_DROPITEM": 6,
+        "S_DESPAWN_DROPITEM": 4,
+        "S_DUNGEON_EVENT_MESSAGE": 1,
+        "S_SPAWN_NPC": 6,
+        "S_DESPAWN_NPC": 2
+    }
+}

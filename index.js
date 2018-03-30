@@ -4,40 +4,49 @@ HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be 
 Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos
 
 To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. Or use 'mob-id-finder' module on my Github (SerenTera)
+
+Configs are in config.json. If you do not have it, it will be auto generated on your first login
 */
 	
-//Defaults:
-let	enabled=true, 		//True: Enables the module (default true)
-	markenabled=true,   //True: Enables the item markers (default true)
-	messager=true, 	//True: Enables the system chat message (default false)
-	alerts=true			//True: Enables the system notice (default true)
-	
-//Monster ids and other values:
-const Item_ID = 98260,			//ItemId for the marker, Use different itemids if you feel like it.
-	  
-	  Monster_ID = { // Monster id values, in the form HuntingZoneId_TemplateId : 'Name of Monster'
-		'4_5011'		: 'Tempest Kanash',
-		'38_35'			: 'Nyxarras',
-		'57_33'			: 'Betsael',
-		'51_7011'		: 'Linyphi',
-		'10_99'			: 'Divine Reaver',
-		'52_9050'		: 'Yunaras Snaggletooth',
-		'1023_8888888'	: 'Blue Box',
-		//'181_2023'		: 'Test mob',
-		
-	  
-	  
-	  
-	  
-	  }
-//------------------------------------All defaults and changeable values are above this line------------------------------------------------------------------//
-
-const Command = require('command')
+const Command = require('command'),
+	  defaultConfig = require('./lib/configDefault.json'),
+	  path = require('path'),
+	  fs = require('fs')	 
 
 module.exports = function markmob(dispatch) {
+	
+	let	mobid=[],
+		config,
+		fileopen = true,
+		stopwrite,
+		enabled,
+		markenabled,
+		messager,
+		alerts,
+		Item_ID,
+		Monster_ID
+	
+	try{
+		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
+		if(config.moduleVersion !== defaultConfig.moduleVersion) {
+			config = Object.assign({},defaultConfig,config,{moduleVersion:defaultConfig.moduleVersion})
+			save(config,'config.json')
+			console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
+		}
+		configInit()
+	}
+	catch(e){
+		config = defaultConfig
+		save(config,'config.json')
+		configInit()
+		console.log('[Monster Marker] New config file generated. Settings in config.json.')
+	}	
+
+	
 	const command = Command(dispatch)
 
-	let	mobid=[]
+	
+
 	
 ///////Commands
 	command.add('warntoggle',() => {
@@ -118,8 +127,29 @@ module.exports = function markmob(dispatch) {
             unk1: 2,
             unk2: 0,
             unk3: 0,
-            message: '(WarnMe)' + msg
+            message: '(MonsterMarker)' + msg
         })
     }
+	
+	function save(data,args) {
+		if(!Array.isArray(args)) args = [args] //Find a way around this later -.-
+		
+		if(fileopen) {
+			fileopen=false
+			fs.writeFile(path.join(__dirname, ...args), JSON.stringify(data,null,"\t"), err => {
+				if(err) command.message('Error Writing File, attempting to rewrite')
+				fileopen = true
+			})
+		}
+		else {
+			clearTimeout(stopwrite)			 //if file still being written
+			stopwrite=setTimeout(save(__dirname,...args),2000)
+			return
+		}
+	}
+	
+	function configInit() {
+		({enabled,markenabled,messager,alerts,Item_ID,Monster_ID} = config)
+	}
 }
 
