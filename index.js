@@ -20,6 +20,7 @@ module.exports = function markmob(dispatch) {
 		fileopen = true,
 		stopwrite,
 		enabled,
+		active = false,
 		markenabled,
 		messager,
 		alerts,
@@ -28,8 +29,13 @@ module.exports = function markmob(dispatch) {
 	
 	try{
 		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
-		if(config.moduleVersion !== defaultConfig.moduleVersion) {
-			config = Object.assign({},defaultConfig,config,{moduleVersion:defaultConfig.moduleVersion})
+		if(config.gameVersion !== defaultConfig.gameVersion) {
+			let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
+				newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries)) 
+			Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update
+			
+			config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
+			delete config.newEntries
 			save(config,'config.json')
 			console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
 		}
@@ -37,6 +43,7 @@ module.exports = function markmob(dispatch) {
 	}
 	catch(e){
 		config = defaultConfig
+		delete config.newEntries
 		save(config,'config.json')
 		configInit()
 		console.log('[Monster Marker] New config file generated. Settings in config.json.')
@@ -71,11 +78,16 @@ module.exports = function markmob(dispatch) {
 		command.message('(Warnme)Item Markers Clear Attempted')
 		for(let itemid of mobid) despawnthis(itemid)
 	})
-	
+
+	command.add('warnactive', () => {
+		command.message(`(Warnme)Active status: ${active}`)
+	})
 	
 ////////Dispatches
 	dispatch.hook('S_SPAWN_NPC', 6, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
-		if(enabled && Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
+		if(!active || !enabled) return 
+		
+		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
 			if(markenabled) {
 				markthis(event.loc,event.gameId.low), 			// low is enough, seems like high are all the same values anyway
 				mobid.push(event.gameId.low)
@@ -94,8 +106,9 @@ module.exports = function markmob(dispatch) {
 		}
 	})
 	
-	dispatch.hook('S_LOAD_TOPO','raw', () => { //reset mobid list on location change
+	dispatch.hook('S_LOAD_TOPO', 3, event => { //reset mobid list on location change
 		mobid=[]
+		active = event.zone < 9000  //Check if it is a dungeon instance, since event mobs can come from dungeon
 	})
 	
 	
