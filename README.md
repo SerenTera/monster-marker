@@ -1,7 +1,7 @@
 # monster-marker
 
 ## Updates
-Latest Version: v4.2.0 
+Latest Version: v4.2.1 
 
 Version History:
 
@@ -13,7 +13,7 @@ v4.1.0: Updated packet definition for Male Brawler Patch
 
 v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be automatically generated on first login.
 
-v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon.
+v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon. Choc Egg Caiman not included
 ## Requirements and Infomation
 Requires: 
 - Commands module by Pinkie-Pie: https://github.com/pinkipi/command
