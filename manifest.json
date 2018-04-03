@@ -1,7 +1,7 @@
 {
     "files": {
-        "config.json": "da060fcd49de8ab4baf4b6c244637b05de28e9e67f42dc2bd847fb20bed85284",
         "index.js": "2484dcf7e517195b083e370de3604070ebe1a9a0eb8dce8fd7185ef724eb55b7",
+        "module.json": "87e057bac31baf72febaa13cfe7eeaeacf8b6b7bbf78ce0ff62c24824d9a3fa2",
         "lib/configDefault.json": "954b0b4feda62bdfd323f6946e117fa9d798718ac08507e92987d80816aea7a4"
     },
     "defs": {
