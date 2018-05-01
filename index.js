@@ -48,6 +48,7 @@ module.exports = function markmob(dispatch) {
 			
 			config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
 			delete config.newEntries
+			delete config.deleteEntries
 			save(config,'config.json')
 			console.log('[Monster Marker] Updated new config file. Current settings transferred over.')
 		}
