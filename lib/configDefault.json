@@ -1,10 +1,11 @@
 {	
-	"gameVersion": "4.2.1",
+	"gameVersion": "4.2.2",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
 	"alerts": true,
 	"Item_ID": 98260,
+	"allowAutoEntryRemoval": true,
 	"Monster_ID": {
 		"4_5011": "Tempest Kanash",
 		"38_35": "Nyxarras",
@@ -12,19 +13,11 @@
 		"51_7011": "Linyphi",
 		"10_99": "Divine Reaver",
 		"52_9050": "Yunaras Snaggletooth",
-		"1023_8888888": "Blue Box",
-		"1023_99999992": "Big Caiman",
-		"1023_99999991"	: "Caiman (Bunny box)",
-		"770_2002": "Tasty Arachnen Egg (Event)",
-		"970_2002": "Tasty Arachnen Egg (Event)",
-		"777_77709": "Orisk Egg (Event)"
+		"1023_8888888": "Blue Box"
 	},
 	"newEntries": {
-		"1023_99999992": "Big Caiman",
-		"1023_99999991"	: "Caiman (Bunny box)",
-		"770_2002": "Tasty Arachnen Egg (Event)",
-		"970_2002": "Tasty Arachnen Egg (Event)",
-		"777_77709": "Orisk Egg (Event)"
-	}
+		"13_300945": "Terron Lama",
+		"13_300944": "Terron Chief"
+	},
+	"deleteEntries": ["1023_99999992","1023_99999991","770_2002","970_2002","777_77709"]
 }
-			

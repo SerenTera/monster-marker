@@ -1,8 +1,8 @@
 {
     "files": {
-        "index.js": "2484dcf7e517195b083e370de3604070ebe1a9a0eb8dce8fd7185ef724eb55b7",
+        "index.js": "7ca63cd47e751d6430d6987ef46b499e6377dea10e4da50fa97d529386b04f0a",
         "module.json": "87e057bac31baf72febaa13cfe7eeaeacf8b6b7bbf78ce0ff62c24824d9a3fa2",
-        "lib/configDefault.json": "954b0b4feda62bdfd323f6946e117fa9d798718ac08507e92987d80816aea7a4"
+        "lib/configDefault.json": "67d04886a5d1fd2163cf686052612e261e9e6c58b37cff7974b0eeb99a787b9e"
     },
     "defs": {
         "S_SPAWN_DROPITEM": 6,
