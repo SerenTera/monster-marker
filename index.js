@@ -29,12 +29,13 @@ module.exports = function markmob(dispatch) {
 	
 	try{
 		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
-		if(config.gameVersion !== defaultConfig.gameVersion) {
+		if(config.gameVersion !== defaultConfig.gameVersion || config.entriesVersion != defaultConfig.gameVersion && config.allowAutoEntryRemoval) {
 			let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
 				newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries))
-			
-			if(config.allowAutoEntryRemoval === undefined) 
+
+			if(config.allowAutoEntryRemoval === undefined) {
 				console.log('[Monster Marker] A new config option (allowAutoEntryRemoval) is added to allow this module to automatically clear old event monster entries. It is by default enabled, and you have to disable it in config.json before next login if you do not want this.');
+			}
 			else if(config.allowAutoEntryRemoval) {
 				for(let key of defaultConfig.deleteEntries) {	//Delete old unused entries for events that are over using deleteEntries
 					if(oldMonsterList[key]) {
@@ -42,7 +43,11 @@ module.exports = function markmob(dispatch) {
 						delete oldMonsterList[key]
 					}
 				}
+				config.entriesVersion = defaultConfig.gameVersion
 			}
+
+				
+				
 			
 			Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update as well as remove old entries from past event
 			
