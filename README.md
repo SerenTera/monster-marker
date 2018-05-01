@@ -1,7 +1,7 @@
 # monster-marker
-
+A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.1 
+Latest Version: v4.2.2 NA Anniversary Terron Event
 
 Version History:
 
@@ -14,6 +14,9 @@ v4.1.0: Updated packet definition for Male Brawler Patch
 v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be automatically generated on first login.
 
 v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon. Choc Egg Caiman not included
+
+v4.2.2: Added NA anniversary terron mobs. Deleted old event mob entries (NOT World Bam). Added new config option to automatically delete old event mobs entry, config name is `allowAutoEntryRemoval` and is Enabled by default. If you do not wish to have this, then set it to false in config.json, else the old event entries will be deleted on next login after updating.
+
 ## Requirements and Infomation
 Requires: 
 - Commands module by Pinkie-Pie: https://github.com/pinkipi/command
