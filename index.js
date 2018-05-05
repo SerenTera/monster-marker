@@ -1,7 +1,7 @@
 /*
 Reference List
 HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
-Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos
+Template IDs: Bluebox-88888888 | Caiman-99999999,99999991,99999992 | crabs-1021 | unknown for mongos | Test-mob - 181_2023
 
 To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. Or use 'mob-id-finder' module on my Github (SerenTera)
 
@@ -62,6 +62,8 @@ module.exports = function markmob(dispatch) {
 	catch(e){
 		config = defaultConfig
 		delete config.newEntries
+		delete config.deleteEntries
+		config.entriesVersion = defaultConfig.gameVersion
 		save(config,'config.json')
 		configInit()
 		console.log('[Monster Marker] New config file generated. Settings in config.json.')
