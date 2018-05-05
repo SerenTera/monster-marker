@@ -62,7 +62,6 @@ module.exports = function markmob(dispatch) {
 	catch(e){
 		config = defaultConfig
 		delete config.newEntries
-		delete config.deleteEntries
 		save(config,'config.json')
 		configInit()
 		console.log('[Monster Marker] New config file generated. Settings in config.json.')
