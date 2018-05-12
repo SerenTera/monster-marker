@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.2.2",
+	"gameVersion": "4.2.3",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -17,7 +17,8 @@
 	},
 	"newEntries": {
 		"13_300945": "Terron Lama",
-		"13_300944": "Terron Chief"
+		"13_300944": "Terron Chief",
+		"507_1204" : "Khemadia"
 	},
 	"deleteEntries": ["1023_99999992","1023_99999991","770_2002","970_2002","777_77709"]
 }

@@ -78,7 +78,7 @@ module.exports = function markmob(dispatch) {
 ///////Commands
 	command.add('warntoggle',() => {
 		enabled=!enabled
-		command.message( enabled ? '(Warnme) Module Enabled' : '(Warnme) Module Disabled')
+		command.message( enabled ? '(MonsterMarker) Module Enabled' : '(MonsterMarker) Module Disabled')
 		
 		if(!enabled)
 			for(let itemid of mobid) despawnthis(itemid)
@@ -86,21 +86,28 @@ module.exports = function markmob(dispatch) {
 	
 	command.add('warnalert',() => {
 		alerts = !alerts
-		command.message(alerts ? '(Warnme)System popup notice enabled' : '(Warnme)System popup notice disabled')
+		command.message(alerts ? '(MonsterMarker)System popup notice enabled' : '(MonsterMarker)System popup notice disabled')
 	})
 	
 	command.add('warnmarker',() => {
 		markenabled = !markenabled
-		command.message(markenabled ? '(Warnme)Item Markers enabled' : '(Warnme)Item Markers disabled')
+		command.message(markenabled ? '(MonsterMarker)Item Markers enabled' : '(MonsterMarker)Item Markers disabled')
 	})
 	
 	command.add('warnclear',() => {
-		command.message('(Warnme)Item Markers Clear Attempted')
+		command.message('(MonsterMarker)Item Markers Clear Attempted')
 		for(let itemid of mobid) despawnthis(itemid)
 	})
 
 	command.add('warnactive', () => {
-		command.message(`(Warnme)Active status: ${active}`)
+		command.message(`(MonsterMarker)Active status: ${active}`)
+	})
+	
+	command.add('warnadd', (huntingZone,templateId,name) => {
+		config.Monster_ID[`${huntingZone}_${templateId}`] = name
+		Monster_ID[`${huntingZone}_${templateId}`] = name
+		save(config,'config.json')
+		command.message(`(MonsterMarker) Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
 	})
 	
 ////////Dispatches
@@ -115,7 +122,7 @@ module.exports = function markmob(dispatch) {
 			
 			if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 			
-			if(messager) command.message('(Warnme)Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+			if(messager) command.message('(MonsterMarker)Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 		}
 	}) 
 
@@ -160,7 +167,7 @@ module.exports = function markmob(dispatch) {
             unk1: 2,
             unk2: 0,
             unk3: 0,
-            message: '(MonsterMarker)' + msg
+            message: msg
         })
     }
 	
