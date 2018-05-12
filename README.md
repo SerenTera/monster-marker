@@ -1,7 +1,7 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.2 NA Anniversary Terron Event
+Latest Version: v4.2.3 Add Khemadia for letters farming 
 
 Version History:
 
@@ -16,6 +16,8 @@ v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be au
 v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon. Choc Egg Caiman not included
 
 v4.2.2: Added NA anniversary terron mobs. Deleted old event mob entries (NOT World Bam). Added new config option to automatically delete old event mobs entry, config name is `allowAutoEntryRemoval` and is Enabled by default. If you do not wish to have this, then set it to false in config.json, else the old event entries will be deleted on next login after updating.
+
+v4.2.3 Add Khemadia for letters farming, add command for adding entries in game.
 
 ## Requirements and Infomation
 Requires: 
@@ -41,6 +43,7 @@ Configuration can be done via config.json. If not present, it will be generated 
 - `alerts`: Enable flashing messages for alert. True to enable.
 - `Item_ID`: Item ID of item marker
 - `Monster_ID`: List of Mobs to look out for. Format: `"<huntingZoneId>_<templateId>" : "<Name of mob>"`
+
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
 
@@ -51,6 +54,8 @@ Use the commands in /proxy chat. If you want to use it outside of /proxy chat, m
 - `warnmarker` - Toggles display of mobmarkers (switch on or off mob markers via toggle)-
 
 - `warnclear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
+
+- `warnadd <huntingZoneId> <templateId> <name of entry>` - Adds and save a custom entry to the config.
 
 Currently supports World Bams and Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
