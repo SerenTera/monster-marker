@@ -111,7 +111,7 @@ module.exports = function markmob(dispatch) {
 	})
 	
 ////////Dispatches
-	dispatch.hook('S_SPAWN_NPC', 6, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
+	dispatch.hook('S_SPAWN_NPC', 8, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
 		if(!active || !enabled) return 
 		
 		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
