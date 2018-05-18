@@ -1,7 +1,7 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.3 Add Khemadia for letters farming 
+Latest Version: v4.2.4 Removed Khemedia, Added NA Giant Bam spawn event
 
 Version History:
 
@@ -18,6 +18,8 @@ v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if
 v4.2.2: Added NA anniversary terron mobs. Deleted old event mob entries (NOT World Bam). Added new config option to automatically delete old event mobs entry, config name is `allowAutoEntryRemoval` and is Enabled by default. If you do not wish to have this, then set it to false in config.json, else the old event entries will be deleted on next login after updating.
 
 v4.2.3 Add Khemadia for letters farming, add command for adding entries in game.
+
+v4.2.4: Update sSpawnNpc to v8, Removed Khemedia, Added NA Giant Bam spawn event
 
 ## Requirements and Infomation
 Requires: 
