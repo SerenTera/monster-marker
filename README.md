@@ -1,7 +1,7 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.4 Removed Khemedia, Added NA Giant Bam spawn event
+Latest Version: v4.2.5 Added more NA Giant Bam spawn event
 
 Version History:
 
@@ -21,6 +21,7 @@ v4.2.3 Add Khemadia for letters farming, add command for adding entries in game.
 
 v4.2.4: Update sSpawnNpc to v8, Removed Khemedia, Added NA Giant Bam spawn event
 
+v4.2.5 Added more NA Giant Bam spawn event
 ## Requirements and Infomation
 Requires: 
 - Commands module by Pinkie-Pie: https://github.com/pinkipi/command
