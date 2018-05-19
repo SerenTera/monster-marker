@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.2.4",
+	"gameVersion": "4.2.5",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -18,10 +18,16 @@
 	"newEntries": {
 		"13_300945": "Terron Lama",
 		"13_300944": "Terron Chief",
+		"1023_160327": "Giant Farmer",
+		"1023_160328": "Giant Penis Mouth",
 		"1023_160329": "Giant Slayer",
 		"1023_160330": "Giant Zerk",
 		"1023_160331": "Giant Zerk",
-		"1023_160332": "Giant Sorc"
+		"1023_160332": "Giant Sorc",
+		"1023_160333": "Giant Ogre",
+		"1023_160334": "Giant Creepy Argon",
+		"1023_160335": "Giant Ghillie Tree"
+		
 	},
 	"deleteEntries": ["1023_99999992","1023_99999991","770_2002","970_2002","777_77709","507_1204"]
 }
