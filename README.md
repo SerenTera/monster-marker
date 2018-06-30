@@ -1,27 +1,8 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.5 Added more NA Giant Bam spawn event
+Latest Version: v4.2.6 Removed NA event bams
 
-Version History:
-
-v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
-
-v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
-
-v4.1.0: Updated packet definition for Male Brawler Patch
-
-v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be automatically generated on first login.
-
-v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon. Choc Egg Caiman not included
-
-v4.2.2: Added NA anniversary terron mobs. Deleted old event mob entries (NOT World Bam). Added new config option to automatically delete old event mobs entry, config name is `allowAutoEntryRemoval` and is Enabled by default. If you do not wish to have this, then set it to false in config.json, else the old event entries will be deleted on next login after updating.
-
-v4.2.3 Add Khemadia for letters farming, add command for adding entries in game.
-
-v4.2.4: Update sSpawnNpc to v8, Removed Khemedia, Added NA Giant Bam spawn event
-
-v4.2.5 Added more NA Giant Bam spawn event
 ## Requirements and Infomation
 Requires: 
 - Commands module by Pinkie-Pie: https://github.com/pinkipi/command
@@ -73,6 +54,28 @@ Bluebox-88888888 | Caiman-99999999,99999991,99999992 | 'summer event crabs'-1021
 ## todo
 - Fix any bugs
 - Maybe incoporate mob id finder. maybee
+
+## Version History:
+
+v3.0.0: Changed to Id-based markers, Simplified code, Item markers cannot be picked up now. Now correctly despawns markers on despawning target even if the mob target moves around. 
+
+v4.0.0: Added World bams since a couple authors released similar modules already. Updated to use latest def to fix various mob identification issues. Added a different monster id system that is more intuitive and allows better customization than the old one.
+
+v4.1.0: Updated packet definition for Male Brawler Patch
+
+v4.2.0: Added Auto update. Configs are in config.json, if missing, it will be automatically generated on first login.
+
+v4.2.1: Added NA easter event mobs (Caiman and Eggs). Added checks to disable if in dungeon. Choc Egg Caiman not included
+
+v4.2.2: Added NA anniversary terron mobs. Deleted old event mob entries (NOT World Bam). Added new config option to automatically delete old event mobs entry, config name is `allowAutoEntryRemoval` and is Enabled by default. If you do not wish to have this, then set it to false in config.json, else the old event entries will be deleted on next login after updating.
+
+v4.2.3 Add Khemadia for letters farming, add command for adding entries in game.
+
+v4.2.4: Update sSpawnNpc to v8, Removed Khemedia, Added NA Giant Bam spawn event
+
+v4.2.5: Added more NA Giant Bam spawn event
+
+v4.2.6: Removed NA event bams
 
 ## Pictures
 Spawns at box (Head cannot be picked up)
