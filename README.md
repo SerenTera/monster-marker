@@ -1,9 +1,9 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and experimental special mob searching
+Latest Version: v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and special mob searching
 
-Note: Special mob searching is enabled by default and can be enabled in config.json, under `specialMobSearch`. This is not tested since there is no event running atm. Credits to sunpui for finding out the required fields!
+Note: Special mob searching is enabled by default and can be disabled in config.json, under `specialMobSearch`. This is not tested since there is no event running atm. 
 
 ## Requirements and Infomation
 Requires: 
@@ -29,6 +29,7 @@ Configuration can be done via config.json. If not present, it will be generated 
 - `alerts`: Enable flashing messages for alert. True to enable.
 - `Item_ID`: Item ID of item marker
 - `Monster_ID`: List of Mobs to look out for. Format: `"<huntingZoneId>_<templateId>" : "<Name of mob>"`
+- `specialMobSearch`: Searches for specialMobs based on bySpawnEvent field
 
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
@@ -78,6 +79,8 @@ v4.2.4: Update sSpawnNpc to v8, Removed Khemedia, Added NA Giant Bam spawn event
 v4.2.5: Added more NA Giant Bam spawn event
 
 v4.2.6: Removed NA event bams
+
+v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and special mob searching
 
 ## Pictures
 Spawns at box (Head cannot be picked up)
