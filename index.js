@@ -124,7 +124,7 @@ module.exports = function markmob(dispatch) {
 			if(messager) command.message(' Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 		}
 	
-		else if(specialMobSearch && (event.unk20 & 0xFF)) { //unk20 bitmask. Credits: Sunpui
+		else if(specialMobSearch && event.bySpawnEvent) { //New def
 			if(markenabled) {
 				markthis(event.loc,event.gameId.low), 
 				mobid.push(event.gameId.low)
