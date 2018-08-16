@@ -6,7 +6,7 @@
 	"alerts": true,
 	"Item_ID": 98260,
 	"allowAutoEntryRemoval": true,
-	"specialMobSearch": false,
+	"specialMobSearch": true,
 	"Monster_ID": {
 		"4_5011": "Tempest Kanash",
 		"38_35": "Nyxarras",
