@@ -1,7 +1,7 @@
 # monster-marker
 A Tera Proxy module that warns you when specific objects(mobs like mongos/blue boxes) are in your VISIBLE vicinity (ie: IN YOUR SIGHT) and puts a marker on them.
 ## Updates
-Latest Version: v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and special mob searching
+Latest Version: v4.2.8 Added sSpawnNpc v9, various module.json stuff and special mob searching
 
 Note: Special mob searching is enabled by default and can be disabled in config.json, under `specialMobSearch`. This is not tested since there is no event running atm. 
 
