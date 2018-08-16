@@ -25,7 +25,8 @@ module.exports = function markmob(dispatch) {
 		messager,
 		alerts,
 		Item_ID,
-		Monster_ID
+		Monster_ID,
+		specialMobSearch
 	
 	try{
 		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
@@ -46,9 +47,6 @@ module.exports = function markmob(dispatch) {
 				config.entriesVersion = defaultConfig.gameVersion
 			}
 
-				
-				
-			
 			Object.assign(oldMonsterList,newMonsterEntry) //Remember to remove the newentries for every update as well as remove old entries from past event
 			
 			config = Object.assign({},defaultConfig,config,{gameVersion:defaultConfig.gameVersion,Monster_ID:oldMonsterList}) //shallow merge
@@ -78,7 +76,7 @@ module.exports = function markmob(dispatch) {
 ///////Commands
 	command.add('warntoggle',() => {
 		enabled=!enabled
-		command.message( enabled ? '(MonsterMarker) Module Enabled' : '(MonsterMarker) Module Disabled')
+		command.message( enabled ? ' Module Enabled' : ' Module Disabled')
 		
 		if(!enabled)
 			for(let itemid of mobid) despawnthis(itemid)
@@ -86,44 +84,57 @@ module.exports = function markmob(dispatch) {
 	
 	command.add('warnalert',() => {
 		alerts = !alerts
-		command.message(alerts ? '(MonsterMarker)System popup notice enabled' : '(MonsterMarker)System popup notice disabled')
+		command.message(alerts ? 'System popup notice enabled' : 'System popup notice disabled')
 	})
 	
 	command.add('warnmarker',() => {
 		markenabled = !markenabled
-		command.message(markenabled ? '(MonsterMarker)Item Markers enabled' : '(MonsterMarker)Item Markers disabled')
+		command.message(markenabled ? 'Item Markers enabled' : 'Item Markers disabled')
 	})
 	
 	command.add('warnclear',() => {
-		command.message('(MonsterMarker)Item Markers Clear Attempted')
+		command.message('Item Markers Clear Attempted')
 		for(let itemid of mobid) despawnthis(itemid)
 	})
 
 	command.add('warnactive', () => {
-		command.message(`(MonsterMarker)Active status: ${active}`)
+		command.message(`Active status: ${active}`)
 	})
 	
 	command.add('warnadd', (huntingZone,templateId,name) => {
 		config.Monster_ID[`${huntingZone}_${templateId}`] = name
 		Monster_ID[`${huntingZone}_${templateId}`] = name
 		save(config,'config.json')
-		command.message(`(MonsterMarker) Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
+		command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
 	})
 	
 ////////Dispatches
-	dispatch.hook('S_SPAWN_NPC', 8, event => {	//Use version 5. Hunting zone ids are indeed only int16 types.
+	dispatch.hook('S_SPAWN_NPC', 9, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
 		if(!active || !enabled) return 
 		
-		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) { 
+	
+		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) {
 			if(markenabled) {
-				markthis(event.loc,event.gameId.low), 			// low is enough, seems like high are all the same values anyway
+				markthis(event.loc,event.gameId.low), // low is enough, seems like high are all the same values anyway (change this for impending bigint)
 				mobid.push(event.gameId.low)
 			}
 			
 			if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
-			
-			if(messager) command.message('(MonsterMarker)Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+			 
+			if(messager) command.message(' Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 		}
+	
+		else if(specialMobSearch && (event.unk20 & 0xFF)) { //unk20 bitmask. Credits: Sunpui
+			if(markenabled) {
+				markthis(event.loc,event.gameId.low), 
+				mobid.push(event.gameId.low)
+			}
+			
+			if(alerts) notice('Found Special Monster')
+			
+			if(messager) command.message(' Found Special Monster')
+		}
+			
 	}) 
 
 	dispatch.hook('S_DESPAWN_NPC', 2, event => {
@@ -189,7 +200,7 @@ module.exports = function markmob(dispatch) {
 	}
 	
 	function configInit() {
-		({enabled,markenabled,messager,alerts,Item_ID,Monster_ID} = config)
+		({enabled,markenabled,messager,alerts,Item_ID,Monster_ID,specialMobSearch} = config)
 	}
 }
 
