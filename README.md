@@ -33,16 +33,17 @@ Configuration can be done via config.json. If not present, it will be generated 
 
 ## Commands:
 Use the commands in /proxy chat. If you want to use it outside of /proxy chat, make sure you prefix the commands with '!'.
+- `warn info` - Infomation on the module commands
 
-- `warntoggle` - Toggles the module. Disabling the module will clear all markers as well.
+- `warn toggle` - Toggles the module. Disabling the module will clear all markers as well.
 
-- `warnalert` - Toggles system notices
+- `warn alert` - Toggles system notices
 
-- `warnmarker` - Toggles display of mobmarkers (switch on or off mob markers via toggle)-
+- `warn marker` - Toggles display of mobmarkers (switch on or off mob markers via toggle)-
 
-- `warnclear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
+- `warn clear` - Attempts to clear all markers and reset the module. Use if vergos head failed to despawn for some weird reason
 
-- `warnadd <huntingZoneId> <templateId> <name of entry>` - Adds and save a custom entry to the config.
+- `warn add <huntingZoneId> <templateId> <name of entry>` - Adds and save a custom entry to the config.
 
 Currently supports World Bams and Big Blue Boxes. Can be modified for other objects.
 Many thanks to teralove for the work on party death markers for codes on markers (https://github.com/teralove/party-death-markers)
