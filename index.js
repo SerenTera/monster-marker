@@ -8,12 +8,10 @@ To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. O
 Configs are in config.json. If you do not have it, it will be auto generated on your first login
 */
 	
-const Command = require('command'),
-	  defaultConfig = require('./lib/configDefault.json'),
-	  path = require('path'),
+const path = require('path'),
 	  fs = require('fs')	 
 
-module.exports = function markmob(dispatch) {
+module.exports = function markmob(mod) {
 	
 	let	mobid=[],
 		config,
@@ -30,6 +28,7 @@ module.exports = function markmob(dispatch) {
 	
 	try{
 		config = JSON.parse(fs.readFileSync(path.join(__dirname,'config.json'), 'utf8'))
+		let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
 		if(config.gameVersion !== defaultConfig.gameVersion || config.entriesVersion != defaultConfig.gameVersion && config.allowAutoEntryRemoval) {
 			let oldMonsterList = JSON.parse(JSON.stringify(config.Monster_ID)), //Deep Clone to replace new list with old config using shallow merge
 				newMonsterEntry = JSON.parse(JSON.stringify(defaultConfig.newEntries))
@@ -65,51 +64,58 @@ module.exports = function markmob(dispatch) {
 		save(config,'config.json')
 		configInit()
 		console.log('[Monster Marker] New config file generated. Settings in config.json.')
-	}	
-
-	
-	const command = Command(dispatch)
-
-	
+	}		
 
 	
 ///////Commands
-	command.add('warntoggle',() => {
-		enabled=!enabled
-		command.message( enabled ? ' Module Enabled' : ' Module Disabled')
+	mod.command.add('warn', {
+		$default() {
+			mod.command.message('Invalid Command. Type "warn info" for help')
+		},
 		
-		if(!enabled)
+		info() {
+			mod.command.message(`Version: ${config.gameVersion}`)
+			mod.command.message('Commands: warn [arguments]\nArguments are as follows:\ntoggle: Enable/Disable Module\nalert: Toggle popup alerts\nmarker: Toggles markers spawn\nclear: Clears marker\nactive: Checks if module is active zone\nadd huntingZone templateId name: Adds the entry to the config')
+		},
+		
+		toggle() {
+			enabled=!enabled
+			mod.command.message( enabled ? ' Module Enabled' : ' Module Disabled')
+		
+			if(!enabled)
+				for(let itemid of mobid) despawnthis(itemid)
+		},
+	
+		alert() {
+			alerts = !alerts
+			mod.command.message(alerts ? 'System popup notice enabled' : 'System popup notice disabled')
+		},
+	
+		marker() {
+			markenabled = !markenabled
+			mod.command.message(markenabled ? 'Item Markers enabled' : 'Item Markers disabled')
+		},
+	
+		clear() {
+			mod.command.message('Item Markers Clear Attempted')
 			for(let itemid of mobid) despawnthis(itemid)
-	})
-	
-	command.add('warnalert',() => {
-		alerts = !alerts
-		command.message(alerts ? 'System popup notice enabled' : 'System popup notice disabled')
-	})
-	
-	command.add('warnmarker',() => {
-		markenabled = !markenabled
-		command.message(markenabled ? 'Item Markers enabled' : 'Item Markers disabled')
-	})
-	
-	command.add('warnclear',() => {
-		command.message('Item Markers Clear Attempted')
-		for(let itemid of mobid) despawnthis(itemid)
-	})
+		},
 
-	command.add('warnactive', () => {
-		command.message(`Active status: ${active}`)
-	})
+		active() {
+			mod.command.message(`Active status: ${active}`)
+		},
 	
-	command.add('warnadd', (huntingZone,templateId,name) => {
-		config.Monster_ID[`${huntingZone}_${templateId}`] = name
-		Monster_ID[`${huntingZone}_${templateId}`] = name
-		save(config,'config.json')
-		command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
+		add(huntingZone,templateId,name) {
+			config.Monster_ID[`${huntingZone}_${templateId}`] = name
+			Monster_ID[`${huntingZone}_${templateId}`] = name
+			save(config,'config.json')
+			mod.command.message(` Added Config Entry: ${huntingZone}_${templateId}= ${name}`)
+		}
+		
 	})
 	
 ////////Dispatches
-	dispatch.hook('S_SPAWN_NPC', 9, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
+	mod.hook('S_SPAWN_NPC', 9, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
 		if(!active || !enabled) return 
 		
 	
@@ -121,7 +127,7 @@ module.exports = function markmob(dispatch) {
 			
 			if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 			 
-			if(messager) command.message(' Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
+			if(messager) mod.command.message(' Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
 		}
 	
 		else if(specialMobSearch && event.bySpawnEvent) { //New def
@@ -132,19 +138,19 @@ module.exports = function markmob(dispatch) {
 			
 			if(alerts) notice('Found Special Monster')
 			
-			if(messager) command.message(' Found Special Monster')
+			if(messager) mod.command.message(' Found Special Monster')
 		}
 			
 	}) 
 
-	dispatch.hook('S_DESPAWN_NPC', 2, event => {
+	mod.hook('S_DESPAWN_NPC', 2, event => {
 		if(mobid.includes(event.gameId.low)) {
 			despawnthis(event.gameId.low),
 			mobid.splice(mobid.indexOf(event.gameId.low), 1)
 		}
 	})
 	
-	dispatch.hook('S_LOAD_TOPO', 3, event => { //reset mobid list on location change
+	mod.hook('S_LOAD_TOPO', 3, event => { //reset mobid list on location change
 		mobid=[]
 		active = event.zone < 9000  //Check if it is a dungeon instance, since event mobs can come from dungeon
 	})
@@ -152,7 +158,7 @@ module.exports = function markmob(dispatch) {
 	
 ////////Functions
 	function markthis(locs,idRef) {
-		dispatch.toClient('S_SPAWN_DROPITEM', 6, {
+		mod.send('S_SPAWN_DROPITEM', 6, {
 			gameId: {low:idRef,high:0,unsigned:true},
 			loc:locs,
 			item: Item_ID, 
@@ -168,13 +174,13 @@ module.exports = function markmob(dispatch) {
 	}
 	
 	function despawnthis(despawnid) {
-		dispatch.toClient('S_DESPAWN_DROPITEM', 4, {
+		mod.send('S_DESPAWN_DROPITEM', 4, {
 			gameId: {low:despawnid,high:0,unsigned:true}
 		})
 	}
 	
 	function notice(msg) {
-		dispatch.toClient('S_DUNGEON_EVENT_MESSAGE', 1, {
+		mod.send('S_DUNGEON_EVENT_MESSAGE', 1, {
             unk1: 2,
             unk2: 0,
             unk3: 0,
@@ -188,7 +194,7 @@ module.exports = function markmob(dispatch) {
 		if(fileopen) {
 			fileopen=false
 			fs.writeFile(path.join(__dirname, ...args), JSON.stringify(data,null,"\t"), err => {
-				if(err) command.message('Error Writing File, attempting to rewrite')
+				if(err) mod.command.message('Error Writing File, attempting to rewrite')
 				fileopen = true
 			})
 		}
