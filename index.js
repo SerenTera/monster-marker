@@ -57,6 +57,7 @@ module.exports = function markmob(mod) {
 		configInit()
 	}
 	catch(e){
+		let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
 		config = defaultConfig
 		delete config.newEntries
 		delete config.deleteEntries
