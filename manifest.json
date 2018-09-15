@@ -1,15 +1,15 @@
 {
     "files": {
-        "index.js": "1b7753a6b5e7feefb4e42997252065ffc7261c1c5e09befdadcedd40657fa04e",
+        "index.js": "bda59db62695c0d85a3d1149a45e7ff1bc32551492e119d848b0e142c4f3b26e",
         "module.json": "eb729f296dbd719e1537247422db340f96b3b572ee83a36c22748926bd0263bb",
         "lib/configDefault.json": "c02d9f546868299d7ff9b924a525dd0bb35ced3da8599d2ef9bed3747103f8ef"
     },
     "defs": {
         "S_SPAWN_DROPITEM": 6,
         "S_DESPAWN_DROPITEM": 4,
-        "S_DUNGEON_EVENT_MESSAGE": 1,
+        "S_DUNGEON_EVENT_MESSAGE": 2,
         "S_SPAWN_NPC": 9,
-        "S_DESPAWN_NPC": 2,
+        "S_DESPAWN_NPC": 3,
         "S_LOAD_TOPO": 3
     }
 }

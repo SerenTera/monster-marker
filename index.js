@@ -144,7 +144,7 @@ module.exports = function markmob(mod) {
 			
 	}) 
 
-	mod.hook('S_DESPAWN_NPC', 2, event => {
+	mod.hook('S_DESPAWN_NPC', 3, event => {
 		if(mobid.includes(event.gameId.low)) {
 			despawnthis(event.gameId.low),
 			mobid.splice(mobid.indexOf(event.gameId.low), 1)
@@ -181,10 +181,10 @@ module.exports = function markmob(mod) {
 	}
 	
 	function notice(msg) {
-		mod.send('S_DUNGEON_EVENT_MESSAGE', 1, {
-            unk1: 2,
-            unk2: 0,
-            unk3: 0,
+		mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
+            type: 2,
+            chat: false,
+            channel: 0,
             message: msg
         })
     }
