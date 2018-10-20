@@ -182,7 +182,7 @@ module.exports = function markmob(mod) {
 	
 	function notice(msg) {
 		mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
-            type: 2,
+            type: 43,
             chat: false,
             channel: 0,
             message: msg
