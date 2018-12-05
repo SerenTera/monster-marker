@@ -1,3 +1,4 @@
+'use strict'
 /*
 Reference List
 HuntingZoneIDs: Bluebox-1023 | Caiman-1023 | crabs-6553782 | mongos seems to be dependent on location, are the zone ids the same as orignal location?
@@ -122,8 +123,8 @@ module.exports = function markmob(mod) {
 	
 		if(Monster_ID[`${event.huntingZoneId}_${event.templateId}`]) {
 			if(markenabled) {
-				markthis(event.loc,event.gameId.low), // low is enough, seems like high are all the same values anyway (change this for impending bigint)
-				mobid.push(event.gameId.low)
+				markthis(event.loc,event.gameId*100n), //create unique id ?
+				mobid.push(event.gameId)
 			}
 			
 			if(alerts) notice('Found '+ Monster_ID[`${event.huntingZoneId}_${event.templateId}`])
@@ -133,8 +134,8 @@ module.exports = function markmob(mod) {
 	
 		else if(specialMobSearch && event.bySpawnEvent) { //New def
 			if(markenabled) {
-				markthis(event.loc,event.gameId.low), 
-				mobid.push(event.gameId.low)
+				markthis(event.loc,event.gameId*100n), 
+				mobid.push(event.gameId)
 			}
 			
 			if(alerts) notice('Found Special Monster')
@@ -145,9 +146,9 @@ module.exports = function markmob(mod) {
 	}) 
 
 	mod.hook('S_DESPAWN_NPC', 3, event => {
-		if(mobid.includes(event.gameId.low)) {
-			despawnthis(event.gameId.low),
-			mobid.splice(mobid.indexOf(event.gameId.low), 1)
+		if(mobid.includes(event.gameId)) {
+			despawnthis(event.gameId*100n),
+			mobid.splice(mobid.indexOf(event.gameId), 1)
 		}
 	})
 	
@@ -160,7 +161,7 @@ module.exports = function markmob(mod) {
 ////////Functions
 	function markthis(locs,idRef) {
 		mod.send('S_SPAWN_DROPITEM', 6, {
-			gameId: {low:idRef,high:0,unsigned:true},
+			gameId: idRef,
 			loc:locs,
 			item: Item_ID, 
 			amount: 1,
@@ -176,7 +177,7 @@ module.exports = function markmob(mod) {
 	
 	function despawnthis(despawnid) {
 		mod.send('S_DESPAWN_DROPITEM', 4, {
-			gameId: {low:despawnid,high:0,unsigned:true}
+			gameId: despawnid
 		})
 	}
 	
