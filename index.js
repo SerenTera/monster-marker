@@ -62,6 +62,7 @@ module.exports = function markmob(mod) {
 		config = defaultConfig
 		delete config.newEntries
 		delete config.deleteEntries
+		Object.assign(config.Monster_ID,config.newEntries)
 		config.entriesVersion = defaultConfig.gameVersion
 		save(config,'config.json')
 		configInit()
