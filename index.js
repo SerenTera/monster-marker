@@ -60,9 +60,9 @@ module.exports = function markmob(mod) {
 	catch(e){
 		let defaultConfig = JSON.parse(fs.readFileSync(path.join(__dirname,'lib','configDefault.json'), 'utf8'))
 		config = defaultConfig
+		Object.assign(config.Monster_ID,config.newEntries)
 		delete config.newEntries
 		delete config.deleteEntries
-		Object.assign(config.Monster_ID,config.newEntries)
 		config.entriesVersion = defaultConfig.gameVersion
 		save(config,'config.json')
 		configInit()
