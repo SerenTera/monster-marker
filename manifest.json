@@ -2,7 +2,7 @@
     "files": {
         "index.js": "30f3077842a399491905d95b1898dab764a10332351a46df86422541a2e6f244",
         "module.json": "eb729f296dbd719e1537247422db340f96b3b572ee83a36c22748926bd0263bb",
-        "lib/configDefault.json": "f1d6e69d76265713b5b50ac625c21a06ed51bf63ced0aea6a829d8ff0ba2697e"
+        "lib/configDefault.json": "53ed96aec04100f9cd9240d9fa044da490e138388dd065baf06d3c90b7584a98"
     },
     "defs": {
         "S_SPAWN_DROPITEM": 6,
