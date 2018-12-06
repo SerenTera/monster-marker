@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.2.8",
+	"gameVersion": "4.2.9",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -14,7 +14,8 @@
 		"51_7011": "Linyphi",
 		"10_99": "Divine Reaver",
 		"52_9050": "Yunaras Snaggletooth",
-		"1023_8888888": "Blue Box"
+		"1023_99999997": "Fat Santa",
+		"1023_99999998": "Tiny Santa"
 	},
 	"newEntries": {
 	},
