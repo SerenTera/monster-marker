@@ -1,5 +1,9 @@
 {
 	"disableAutoUpdate": false,
+	"name": "monster-marker",
+	"author": "Seren",
+	"description":"Marks out user-specified monsters, world bosses and special event monsters ",
+	"version":"4.2.9",
     "options": {
         "niceName": "MonsterMarker"
     },
