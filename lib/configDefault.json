@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.2.9",
+	"gameVersion": "4.3.0",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -17,7 +17,8 @@
 	},
 	"newEntries": {
 		"1023_99999997": "Fat Santa",
-		"1023_99999998": "Tiny Santa"
+		"1023_99999998": "Tiny Santa",
+		"1023_88888888": "Winterron Box"
 	},
-	"deleteEntries": ["13_300945","13_300944","1023_160327","1023_160328","1023_160329","1023_160330","1023_160331","1023_160332","1023_160333","1023_160334","1023_160335"]
+	"deleteEntries": []
 }
