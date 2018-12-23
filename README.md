@@ -83,7 +83,7 @@ v4.2.6: Removed NA event bams
 
 v4.2.8 Added sSpawnNpc v9, various module.jsons stuff and special mob searching
 
-v4.2.9 NA Santa Event
+v4.2.9, v4.3.0 NA Santa and Blue Box Event
 
 ## Pictures
 Spawns at box (Head cannot be picked up)
