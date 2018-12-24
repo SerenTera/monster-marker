@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.3.0",
+	"gameVersion": "4.3.1",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -20,5 +20,5 @@
 		"1023_99999998": "Tiny Santa",
 		"1023_88888888": "Winterron Box"
 	},
-	"deleteEntries": []
+	"deleteEntries": ["181_2015","181_2023"]
 }
