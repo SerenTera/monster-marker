@@ -1,5 +1,5 @@
 {	
-	"gameVersion": "4.3.1",
+	"gameVersion": "4.3.2",
 	"enabled": true,
 	"markenabled": true,
 	"messager": true,
@@ -16,9 +16,7 @@
 		"52_9050": "Yunaras Snaggletooth"
 	},
 	"newEntries": {
-		"1023_99999997": "Fat Santa",
-		"1023_99999998": "Tiny Santa",
-		"1023_88888888": "Winterron Box"
+		"1023_3022124": "Golden Beetle"
 	},
-	"deleteEntries": ["181_2015","181_2023"]
+	"deleteEntries": ["181_2015","181_2023","1023_99999997","1023_99999998","1023_88888888"]
 }

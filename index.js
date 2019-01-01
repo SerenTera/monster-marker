@@ -141,7 +141,8 @@ module.exports = function markmob(mod) {
 			
 			if(alerts) notice('Found Special Monster')
 			
-			if(messager) mod.command.message(' Found Special Monster')
+			if(messager) mod.command.message('Found Special Monster')
+			//console.log(`Special mob:${event.huntingZoneId}_${event.templateId}`)
 		}
 			
 	}) 
