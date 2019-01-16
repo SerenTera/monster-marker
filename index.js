@@ -118,7 +118,7 @@ module.exports = function markmob(mod) {
 	})
 	
 ////////Dispatches
-	mod.hook('S_SPAWN_NPC', 10, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
+	mod.hook('S_SPAWN_NPC', mod.majorPatchVersion < 79 ? 10 : 11, event => {	//Use version >5. Hunting zone ids are indeed only int16 types.
 		if(!active || !enabled) return 
 		
 	
