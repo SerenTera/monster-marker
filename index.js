@@ -8,7 +8,6 @@ To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. O
 
 Configs are in config.json. If you do not have it, it will be auto generated on your first login
 */
-const Vec3 = require('tera-vec3')	
 const path = require('path'),
       fs = require('fs'),
       Vec3 = require('tera-vec3')
