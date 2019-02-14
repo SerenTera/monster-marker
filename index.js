@@ -8,9 +8,9 @@ To discover more ids, hook S_SPAWN_NPC and check huntingzoneid and templateId. O
 
 Configs are in config.json. If you do not have it, it will be auto generated on your first login
 */
-	
 const path = require('path'),
-	  fs = require('fs')	 
+      fs = require('fs'),
+      Vec3 = require('tera-vec3')
 
 module.exports = function markmob(mod) {
 	
@@ -164,7 +164,7 @@ module.exports = function markmob(mod) {
 	function markthis(locs,idRef) {
 		mod.send('S_SPAWN_DROPITEM', 6, {
 			gameId: idRef,
-			loc:locs,
+			loc: new Vec3(0, 0, -1000).add(locs),
 			item: Item_ID, 
 			amount: 1,
 			expiry: 300000, //expiry time,milseconds (300000=5 mins?)
